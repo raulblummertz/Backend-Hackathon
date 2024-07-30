@@ -126,8 +126,45 @@ export class ExemploService {
         repetições: Exercicio.Repeticoes ?? Exercicio.Tempo,
         carga: Exercicio.Carga,
         intervalo: Exercicio.Intervalo,
+        observacoes: Exercicio.Observacoes
       };
     })
+  }
+  async getContratos(authorization: string) {
+    const apiURL = 'https://api.sandbox.appnext.fit/api/';
+
+    const headers = {
+      Authorization: `${authorization}`,
+    };
+
+    const response = await firstValueFrom(
+      this.httpService.get(`${apiURL}ContratoBase?filter=[{"property":"VendeOnline","operator":"equal","value":true,"and":true}]`, { headers }),
+    );
+
+    return response.data.Content.map(contrato => {
+      return {
+        nomeContrato: contrato.Descricao,
+        duracaoContrato: contrato.TempoDuracao,
+        tipoDuracaoContrato: contrato.TipoDuracao,
+        valorContrato: contrato.ValorTotal,
+        adesaoContrato: contrato.TemValorAdesao,
+        valorAdesaoContrato: contrato.ValorAdesao,
+      }
+    });
+  }
+  
+  async getVendas(authorization: string) {
+    const apiURL = 'https://api.sandbox.appnext.fit/api/';
+
+    const headers = {
+      Authorization: `${authorization}`,
+    };
+
+    const response = await firstValueFrom(
+      this.httpService.get(`${apiURL}venda`, { headers }),
+    );
+
+    return response.data;
   }
 
 

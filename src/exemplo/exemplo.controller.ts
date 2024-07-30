@@ -75,5 +75,22 @@ export class ExemploController {
     );
   }
 
+  @Get("GetContratos")
+  getContratos(
+    @Query("authorization") authorization: string,
+  ) {
+    return this.exemploService.getContratos(
+      authorization,
+    );
+  }
+
+  @Get("GetVendas")
+  getVendas(
+    @Query("authorization") authorization: string,
+  ) {
+    return this.exemploService.getVendas(
+      authorization,
+    );
+  }
   
 }
