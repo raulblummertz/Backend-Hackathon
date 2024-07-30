@@ -120,8 +120,14 @@ export class ExemploService {
       );
 
   
-    return response.data.Content.Sessoes.filter(x => x.TipoSessao == codigoSessao)
-
+    return response.data.Content.Sessoes.filter(x => x.TipoSessao == codigoSessao)[0].Exercicios.map(Exercicio => {
+      return {
+        nome: Exercicio.Exercicio.Nome,
+        repetições: Exercicio.Repeticoes ?? Exercicio.Tempo,
+        carga: Exercicio.Carga,
+        intervalo: Exercicio.Intervalo,
+      };
+    })
   }
 
 
