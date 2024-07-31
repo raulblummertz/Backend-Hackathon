@@ -93,9 +93,10 @@ export class ExemploService {
       const responseSessao = await firstValueFrom(
         this.httpService.get(`${apiURL}treino/recuperarView?Codigo=${response.data.Content[0].Id}`, { headers }),
         );
-      
+
     return {
-      Id: responseSessao.data
+      Id: responseSessao.data.Content.Id,
+      SessaoAtual:responseSessao.data.Content.SessaoAtual
     }
 
   }
