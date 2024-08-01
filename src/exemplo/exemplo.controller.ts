@@ -1,5 +1,8 @@
 import { Controller, Get, Query, Post, Body } from "@nestjs/common";
 import { ExemploService } from "./exemplo.service";
+import { vendaDTO } from "./dto/venda.dto";
+
+
 
 @Controller("exemplo")
 export class ExemploController {
@@ -92,5 +95,14 @@ export class ExemploController {
       authorization,
     );
   }
+
+    @Post('venda')
+    postVendas(@Body() vendaDTO:vendaDTO, @Query("authorization") authorization: string ) {
+      return this.exemploService.postVendas(
+        authorization,
+        vendaDTO
+      );
+  }
+  
   
 }

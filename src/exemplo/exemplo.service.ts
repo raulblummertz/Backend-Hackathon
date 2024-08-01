@@ -1,11 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-const apiURL = 'https://api.sandbox.appnext.fit/api/';
+import { vendaDTO } from './dto/venda.dto';
+import { json } from 'stream/consumers';
+
+const qs = require('qs');
 @Injectable()
 export class ExemploService {
   constructor(private readonly httpService: HttpService) {}
- 
+  
   async getAmbienteUsuario(
     authorization: string,
     codigoUsuario: string,
@@ -168,5 +171,21 @@ export class ExemploService {
     return response.data;
   }
 
+  async postVendas(authorization:string,dto: vendaDTO){
+    const apiURL = 'https://api.sandbox.appnext.fit/api/';
 
+    const headers = {
+      Authorization: `${authorization}`,
+      'Content-Type':`application/json;charset=UTF-8`
+
+    };
+    
+    const data =JSON.stringify(dto);
+    const response = await firstValueFrom(
+      this.httpService.post(`${apiURL}venda`, data ,{ headers }),
+    );
+
+    return response.data
+    
+  }
 }
