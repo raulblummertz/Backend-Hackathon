@@ -4,7 +4,6 @@ import { firstValueFrom } from 'rxjs';
 import { vendaDTO } from './dto/venda.dto';
 import { json } from 'stream/consumers';
 
-const qs = require('qs');
 @Injectable()
 export class ExemploService {
   constructor(private readonly httpService: HttpService) {}
